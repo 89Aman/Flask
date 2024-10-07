@@ -1,46 +1,47 @@
+from flask import Flask, render_template, redirect, url_for, request, session, flash
 
-from flask import Flask,request,url_for,render_template
-from sqlalchemy.dialects.mysql.base import colspecs
-from flask_migrate import Migrate, migrate
-
-# Settings for migrations
-migrate = Migrate(app, db
 app = Flask(__name__)
-app.debug = True
+app.secret_key = 'your_secret_key'  # Replace with a strong secret key
 
-# adding configuration for using a sqlite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+# A simple user dictionary for demonstration purposes (You can replace this with a database)
+users = {
+    "user1": "password1",
+    "user2": "password2"
+}
 
-# Creating an SQLAlchemy instance
-db = SQLAlchemy(app)
+@app.route('/')
+def home():
+    return render_template('home.html')
 
-class Profile(db.Model):
-    # Id : Field which stores unique id for every row in
-    # database table.
-    # first_name: Used to store the first name if the user
-    # last_name: Used to store last name of the user
-    # Age: Used to store the age of the user
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(20), unique=False, nullable=False)
-    last_name = db.Column(db.String(20), unique=False, nullable=False)
-    username = db.Column(db.String(20), nullable=False)
-    password = db.Column(db.String(20), nullable=False)
-    state = db.Column(db.String(20), nullable=False)
-    zip = db.Column(db.Integer(20), nullable=False)
-    state = db.Column(db.String(20), nullable=False)
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
-@app.route("/")
-def index():
-    return render_template("index.html")
-@app.route("/add" methods=["POST"])
-def add():
-    first_name =request.form.get("")
-    last_name = request.form.get("")
-    first_name = request.form.get("")
-    first_name = request.form.get("")
-    first_name = request.form.get("")
-    first_name = request.form.get("")
+        # Check if the user exists and the password matches
+        if username in users and users[username] == password:
+            session['username'] = username
+            flash('Login successful!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid username or password', 'danger')
 
+    return render_template('login.html')
 
-if __name__ =="main":
-    app.run("debug=True")
+@app.route('/dashboard')
+def dashboard():
+    if 'username' in session:
+        return f'Welcome {session["username"]}! You are logged in. <a href="/logout">Logout</a>'
+    else:
+        flash('You need to login first', 'warning')
+        return redirect(url_for('login'))
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('You have been logged out', 'info')
+    return redirect(url_for('login'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
