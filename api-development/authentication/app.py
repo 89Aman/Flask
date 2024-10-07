@@ -26,9 +26,9 @@ with app.app_context():
 # Home route
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('base.html')
 
-# Register route
+# Sign-in (registration) route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
