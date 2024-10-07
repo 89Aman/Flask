@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
-<div class="text-center mt-5">
-    <h1>Welcome to your Dashboard, {{ session['username'] }}!</h1>
-    <a href="/logout" class="btn btn-danger mt-3">Logout</a>
+<div class="flex flex-col items-center justify-center min-h-screen text-center mt-5">
+    <h1 class="text-3xl font-bold">Welcome to your Dashboard, {{ session['username'] }}!</h1>
+    <a href="/logout" class="mt-4 inline-block px-6 py-3 bg-red-500 text-white font-semibold rounded-lg shadow hover:bg-red-600 transition duration-200">Logout</a>
 </div>
 {% endblock %}

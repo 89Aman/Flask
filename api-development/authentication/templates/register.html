@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<div class="row justify-content-center mt-5">
-    <div class="col-md-4">
-        <h2 class="text-center">Register</h2>
+<div class="flex justify-center items-center min-h-screen">
+    <div class="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold text-center mb-6">Register</h2>
         <form method="POST" action="/register">
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" id="username" name="username" class="form-control" required>
+            <div class="mb-4">
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input type="text" id="username" name="username" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-green-500 focus:border-green-500" required>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" name="password" class="form-control" required>
+            <div class="mb-4">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-green-500 focus:border-green-500" required>
             </div>
-            <div class="d-grid">
-                <button type="submit" class="btn btn-success">Register</button>
+            <div>
+                <button type="submit" class="w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow hover:bg-green-600 transition duration-200">Register</button>
             </div>
         </form>
-        <div class="text-center mt-3">
-            <p>Already have an account? <a href="/login">Log in</a></p>
+        <div class="text-center mt-4">
+            <p class="text-sm">Already have an account? <a href="/login" class="text-green-500 hover:text-green-600 font-semibold">Log in</a></p>
         </div>
     </div>
 </div>
