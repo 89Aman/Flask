@@ -54,7 +54,7 @@ def add_book():
         books_collection.insert_one(new_book)
 
         flash('Book added successfully!', 'success')
-        return redirect(url_for('home'))
+        return render_template('dashboard.html')
 
     return render_template('add_book.html')
 
@@ -206,4 +206,4 @@ def register():
     
 
 if __name__ == '__main__':
-    app.run(debug=True , port=3000)
+    app.run(debug=True)
