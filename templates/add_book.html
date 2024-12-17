@@ -1,0 +1,50 @@
+    {% extends "base.html" %}
+
+    {% block content %}
+        <h1 class="text-2xl font-bold mb-4">Add a New Book</h1>
+        <form action="{{ url_for('add_book') }}" method="post" class="space-y-4">
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700">Title:</label>
+                <input type="text" id="title" name="title" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            
+            <div>
+                <label for="author" class="block text-sm font-medium text-gray-700">Author:</label>
+                <input type="text" id="author" name="author" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            
+            <div>
+                <label for="isbn" class="block text-sm font-medium text-gray-700">ISBN:</label>
+                <input type="text" id="isbn" name="isbn" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            
+            <div>
+                <label for="publisher" class="block text-sm font-medium text-gray-700">Publisher:</label>
+                <input type="text" id="publisher" name="publisher" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            
+            <div>
+                <label for="year" class="block text-sm font-medium text-gray-700">Year:</label>
+                <input type="date" id="year" name="year" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            
+            <div>
+                <label for="genre" class="block text-sm font-medium text-gray-700">Genre:</label>
+                <select id="genre" name="genre" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">Select a genre</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="non-fiction">Non-Fiction</option>
+                    <option value="mystery">Mystery</option>
+                    <option value="fantasy">Fantasy</option>
+                    <option value="science-fiction">Science Fiction</option>
+                    <option value="biography">Biography</option>
+                    <option value="history">History</option>
+                    <option value="romance">Romance</option>
+                </select>
+            </div>
+            
+            <div>
+                <input type="submit" value="Add Book" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            </div>
+        </form>
+    {% endblock %}
