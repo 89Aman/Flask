@@ -108,5 +108,3 @@ Contributions are welcome! Feel free to open an issue or create a pull request.
 This project is open-source and available under the [MIT License](LICENSE).
 
 ---
-
-Feel free to modify it further according to your project's structure and features.
