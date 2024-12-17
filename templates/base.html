@@ -1,107 +1,96 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Flask App{% endblock %}</title>
 
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-    <!-- Custom styles for fine-tuning (if needed) -->
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Styling -->
     <style>
         body {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        #backToTop {
+        #themeToggleButton {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            display: none;
-            background-color: #10B981;
+            background-color: #4B5563;
             color: white;
-            padding: 10px 12px;
+            padding: 12px 16px;
             border-radius: 50%;
             font-size: 1.5rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-
-        #backToTop:hover {
-            background-color: #059669;
+        #themeToggleButton:hover {
+            background-color: #2D3748;
         }
     </style>
 </head>
-
-<body class="bg-gray-100 flex flex-col">
+<body class="bg-gray-900 text-white flex flex-col transition-all duration-300 ease-in-out">
 
     <!-- Navbar -->
-    <nav class="bg-gray-800 w-full fixed z-10 top-0 shadow">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="text-white text-lg font-bold">Flask App</a>
-            <div class="space-x-4">
-                <a href="/login" class="text-white hover:bg-green-500 border-2 border-transparent hover:border-green-500 px-3 py-2 rounded transition duration-200">Login</a>
-                <a href="/dashboard" class="text-white bg-green-500 hover:bg-green-600 px-3 py-2 rounded transition duration-200">Dashboard</a>
+    <nav class="bg-gray-800 w-full fixed top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center px-6 py-4">
+            <a href="/" class="text-white text-2xl font-bold">Flask App</a>
+            <div class="flex space-x-6">
+                <a href="/register" class="text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">Register</a>
+                <a href="/login" class="text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">Login</a>
+                <a href="/dashboard"
+                   class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 transition duration-300">
+                    Dashboard
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Flash Messages -->
-    <div class="container mx-auto px-4 mt-20">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="mt-3">
-            {% for category, message in messages %}
-            <div class="bg-{{ category }}-100 text-{{ category }}-700 p-4 rounded mb-4">
-                {{ message }}
-                <button class="ml-4 text-red-500 hover:text-red-700" data-bs-dismiss="alert">&times;</button>
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
-    </div>
-
-    <!-- Main content block -->
-    <div class="flex-grow container mx-auto px-4 mt-5">
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-6 py-8">
         {% block content %}{% endblock %}
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-4 mt-auto">
+    <footer class="bg-gray-800 text-white py-12 mt-8">
         <div class="container mx-auto text-center">
-            <p>&copy; 2024 Flask App. All Rights Reserved. |
-                <a href="/privacy-policy" class="text-gray-400 hover:text-white">Privacy Policy</a> |
-                <a href="/terms" class="text-gray-400 hover:text-white">Terms of Service</a>
+            <p class="text-lg font-semibold">
+                &copy; 2024 Flask App. All Rights Reserved. 
             </p>
+            <div class="mt-4 space-x-6">
+                <a href="/privacy-policy" class="text-blue-400 hover:underline text-lg">Privacy Policy</a> |
+                <a href="/terms" class="text-blue-400 hover:underline text-lg">Terms of Service</a>
+            </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button id="backToTop" title="Go to top">↑</button>
+    <!-- Theme Toggle Button -->
+    <button id="themeToggleButton" title="Toggle Theme">🌙</button>
 
-    <!-- Back to Top Button Script -->
+    <!-- Theme Toggle Script -->
     <script>
-        const backToTopButton = document.getElementById('backToTop');
+        const themeToggleButton = document.getElementById('themeToggleButton');
+        let isDarkMode = true; // Initial state is dark mode
 
-        window.onscroll = function () {
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                backToTopButton.style.display = 'block';
+        // Function to toggle theme
+        function toggleTheme() {
+            if (isDarkMode) {
+                document.body.classList.remove('bg-gray-900', 'text-white');
+                document.body.classList.add('bg-white', 'text-gray-900');
+                themeToggleButton.textContent = "🌞"; // Change icon to sun
             } else {
-                backToTopButton.style.display = 'none';
+                document.body.classList.remove('bg-white', 'text-gray-900');
+                document.body.classList.add('bg-gray-900', 'text-white');
+                themeToggleButton.textContent = "🌙"; // Change icon to moon
             }
-        };
+            isDarkMode = !isDarkMode; // Toggle the state
+        }
 
-        backToTopButton.onclick = function () {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        };
+        // Attach click event to toggle the theme
+        themeToggleButton.onclick = toggleTheme;
     </script>
 </body>
-
 </html>
