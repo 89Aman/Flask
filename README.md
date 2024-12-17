@@ -1,7 +1,3 @@
-Here is a sample `README.md` file for your Library Management System:
-
----
-
 # Library Management System
 
 This project is a simple Library Management System built with Flask and MongoDB. It allows users to manage books, user records, and transactions related to book borrowing in an easy-to-use web interface.
